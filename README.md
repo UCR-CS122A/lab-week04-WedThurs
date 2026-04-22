@@ -41,7 +41,9 @@ A potentiometer controls how fast the pattern proceeds through its animation. Th
 The Demo Video linked shows the 2 patterns you will need to implement
 
 ## Pico Hardware SPI
-The raspberry Pi Pico has 2 internal SPI controllers that you can use for this lab. Take a look at the Pico's pinout to find which pins are connect to the spi controllers. Here are some functions that you will need to use in order to complete this lab:
+The raspberry Pi Pico has 2 internal SPI controllers that you can use for this lab. Take a look at the Pico's pinout to find which pins are connect to the spi controllers. In order to use it, you wil need to add `hardware_spi` to your target_link_libraries in your CMakeLists.txt and then include hardware/spi.h in your code.
+
+Here are some functions that you will need to use in order to complete this lab:
 
 1. `spi_init (spi_inst_t * spi, uint baudrate)` 
     - Initializes one of the 2 spi controllers and sets the clock speed for SPI
