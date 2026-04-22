@@ -16,30 +16,25 @@ You'll be exploring:
 
 ### Wiring
 
-## Pattern
-You will build a network of Picos + FPGAs to control the light pattern on 12-LEDs.
-The patterns should look as follows:
-
-|  | Master Pico | Slave Pico | Slave FPGA |
-|----------|----------|----------|----------|
-| Pattern 1 |`0000`|`1111`|`0000`|
-| Pattern 2 |`0001`|`1110`|`0001`|
-| Pattern 3 |`0011`|`1100`|`0011`|
-| Pattern 4 |`0111`|`1000`|`0111`|
-| Pattern 5 |`1111`|`0000`|`1111`|
+- Connect four LEDs to each of the two picos, and the remaining four LEDs to the FPGA.
+- Designate one of the two picos as the SPI Master, and hook up the slaves to the master.
+  - This means allocating wires for CS, CLK, and MOSI (we don't need to worry about MISO, because the slaves don't reply)
 
 ## System Description
 
-You are creating a 3-device SPI network. This network houses two Picos, and one FPGA.
+You are creating Christmas Lights! There will be two animated LED patterns that can be shown on 12 LEDs. You will control these LEDs across 3 devices--with each device controlling four LEDs.
 
-One of the picos will serve as the SPI master, the other two devices are SPI slaves.
+The devices will speak with each other using the SPI communication protocol. The devices you have at hand: 2x picos, 1x FPGA.
 
-The master pico generate a 12-bit pattern with each bit controlling one of the twelve LEDs.
+One of the picos will serve as the SPI master, the other two devices as SPI slaves.
 
-4 LEDs are connected to the master Pico, another 4 to the slave pico, and the final 4 to the FPGA slave.
-
-- 4 bits are used by the Master to control its 4 LEDs
-- 4 bits are sent over SPI to the pico slave. The pico slave will consume the data, and update its value on the LEDs
+The master pico generates a 12-bit pattern with each bit controlling one of the twelve LEDs.
+- 4 bits are used by the SPI Master to control its 4 LEDs
+- 4 bits are sent over SPI to the pico slave. The pico slave will consume the data, and display the value on the LEDs
 - The last 4 bits are to be sent to the FPGA slave which will update its LEDs.
+
+A single switch toggles between two animations that can be displayed on the LEDs.
+
+A potentiometer controls how fast the pattern proceeds through its animation. The potentiometer should increase (or decrease) the animation speed by 100ms.
 
 ## [Demo Video]()
