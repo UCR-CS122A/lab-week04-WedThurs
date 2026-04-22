@@ -1,6 +1,6 @@
 # Lab Week 03 Mon-Tue
 
-This lab, you'll be implementing Christmas light controller on the Pico
+This lab, you'll be implementing Christmas light controller on the Pico. This time we aren't breaking it into exercises. We're just giving a high level description of the system.
 
 You'll be exploring:
 - Device-to-device communication
@@ -28,15 +28,18 @@ The patterns should look as follows:
 | Pattern 4 |`0111`|`1000`|`0111`|
 | Pattern 5 |`1111`|`0000`|`1111`|
 
-## Exercise 1
-Program one Raspberry Pi Pico so that it displays distinct christmas-light patterns on 4x LEDs.
+## System Description
 
-## Exercise 2
-Configure the last Pico so that it serves as the SPI Master. Add another Pico so that it serves as the SPI slave.
-The master PICO should generate an 8-bit long pattern. 4 of the bits should be displayed on the LEDs controlled by the master.
-The other 4-bits should be sent to the slave pico over SPI. The slave pico should then display the pattern recieved from the mater on its 4 LEDs.
+You are creating a 3-device SPI network. This network houses two Picos, and one FPGA.
 
-## Exercise 3
-Implement a Verilog SPI Module configured to operate in slave mode.
+One of the picos will serve as the SPI master, the other two devices are SPI slaves.
 
-The FPGA, like the other slave, will recieve a 4 bit payload from the master Pico which it will then display on its own LEDs.
+The master pico generate a 12-bit pattern with each bit controlling one of the twelve LEDs.
+
+4 LEDs are connected to the master Pico, another 4 to the slave pico, and the final 4 to the FPGA slave.
+
+- 4 bits are used by the Master to control its 4 LEDs
+- 4 bits are sent over SPI to the pico slave. The pico slave will consume the data, and update its value on the LEDs
+- The last 4 bits are to be sent to the FPGA slave which will update its LEDs.
+
+## [Demo Video]()
