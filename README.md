@@ -38,3 +38,33 @@ A single switch toggles between two animations that can be displayed on the LEDs
 A potentiometer controls how fast the pattern proceeds through its animation. The potentiometer should increase (or decrease) the animation speed by 100ms. The slowest speed should be 1s / frame. The highest speed should be 100ms / frame. "Frame" in the sense it's one step in the animation.
 
 ## [Demo Video](https://youtu.be/AtTU1ofXxoA?si=HjFPRcikXpi0CPEA)
+The Demo Video linked shows the 2 patterns you will need to implement
+
+## Pico Hardware SPI
+The raspberry Pi Pico has 2 internal SPI controllers that you can use for this lab. Take a look at the Pico's pinout to find which pins are connect to the spi controllers. Here are some functions that you will need to use in order to complete this lab:
+
+1. `spi_init (spi_inst_t * spi, uint baudrate)` 
+    - Initializes one of the 2 spi controllers and sets the clock speed for SPI
+2. `gpio_set_function (uint gpio, gpio_function_t fn)`
+    - sets the funtionality of a specific gpio pin
+    - you will need to call this for every pin you will use for SPI **(EXCEPT THE CS PINS ON THE MASTER PICO)** and you will need to set the the fn parameter to be `GPIO_FUNC_SPI`
+3. `spi_write_blocking (spi_inst_t * spi, const uint8_t * src, size_t len)`
+    - used to actually transmit data
+    - `spi` parameter is used to pick which spi controller you are using
+    - `src` is the data being sent. It should be an array of 8 bit values
+    - `len` is the number of 8 bit values you want to send from `src`
+4. `spi_set_slave (spi_inst_t * spi, bool slave)`
+    - used to set a pico as a slave instead of master
+5. `spi_is_readable (const spi_inst_t * spi)`
+    - Checks if anything has been sent over SPI
+6. `spi_read_blocking (spi_inst_t * spi, uint8_t repeated_tx_data, uint8_t * dst, size_t len)`
+    - reads data that was sent over SPI
+    - parameters are similar to the write version
+    - `repeated_tx_data` is data to be sent the other way. Since we aren't sending anything back, this can just be 0
+7. `spi_set_format (spi_inst_t * spi, uint data_bits, spi_cpol_t cpol, spi_cpha_t cpha, __unused spi_order_t order)`
+    - This is optional depending on your CS pin ussage on the master pico and your CS pin set up on the slave
+    - When the SSPCLKOUT phase is set to mode 0(which it is by default), the slave pico expects to see the CS pin actually toggle from low to high after a read and then back to low for a new read. If it doesn't see this behavior, it just ignores any new data.
+    - In order to make reading possible on the slave pico while in SSPCLKOUT phase mode 0, you will need to make sure you are toggling the CS chip correctly on the master and you are using the default CS pin on the slave(pin 16 for spi0) and used the `gpio_set_function()` function to set it as an SPI pin. If you want to use a different pin as the CS pin on the slave, you will need to set SSPCLKOUT phase to mode 1 and then manually check the CS pin before every read.
+    - here is an example for how to set it SSPCLKOUT phase to mode 1: `spi_set_format(spi_default, 8, SPI_CPOL_1, SPI_CPHA_1, SPI_MSB_FIRST);`
+
+If there are any functions that you would like more details on, you can search for them in the [raspberry pi pico sdk documentastion](https://www.raspberrypi.com/documentation/pico-sdk/) page.
