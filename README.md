@@ -37,4 +37,4 @@ A single switch toggles between two animations that can be displayed on the LEDs
 
 A potentiometer controls how fast the pattern proceeds through its animation. The potentiometer should increase (or decrease) the animation speed by 100ms. The slowest speed should be 1s / frame. The highest speed should be 100ms / frame. "Frame" in the sense it's one step in the animation.
 
-## [Demo Video]()
+## [Demo Video](https://youtu.be/AtTU1ofXxoA?si=HjFPRcikXpi0CPEA)
