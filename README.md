@@ -1,4 +1,4 @@
-# Lab Week 03 Mon-Tue
+# Lab Week 04 Wed-Thurs
 
 This lab, you'll be implementing Christmas light controller on the Pico. This time we aren't breaking it into exercises. We're just giving a high level description of the system.
 
@@ -35,6 +35,6 @@ The master pico generates a 12-bit pattern with each bit controlling one of the 
 
 A single switch toggles between two animations that can be displayed on the LEDs.
 
-A potentiometer controls how fast the pattern proceeds through its animation. The potentiometer should increase (or decrease) the animation speed by 100ms.
+A potentiometer controls how fast the pattern proceeds through its animation. The potentiometer should increase (or decrease) the animation speed by 100ms. The slowest speed should be 1s / frame. The highest speed should be 100ms / frame. "Frame" in the sense it's one step in the animation.
 
 ## [Demo Video]()
