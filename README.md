@@ -41,6 +41,10 @@ A potentiometer controls how fast the pattern proceeds through its animation. Th
 The Demo Video linked shows the 2 patterns you will need to implement
 
 ## Pico Hardware SPI
+### Dip Switch 
+You might need to specify pullup or pulldown for your DIP switch input. After initializing it, you can use either `gpio_pull_up (uint gpio)` or `gpio_pull_down (uint gpio)` to set an input as pullup or pulldown.
+
+### SPI Functions
 The raspberry Pi Pico has 2 internal SPI controllers that you can use for this lab. Take a look at the Pico's pinout to find which pins are connect to the spi controllers. In order to use it, you wil need to add `hardware_spi` to your target_link_libraries in your CMakeLists.txt and then include hardware/spi.h in your code.
 
 Here are some functions that you will need to use in order to complete this lab:
@@ -68,5 +72,6 @@ Here are some functions that you will need to use in order to complete this lab:
     - When the SSPCLKOUT phase is set to mode 0(which it is by default), the slave pico expects to see the CS pin actually toggle from low to high after a read and then back to low for a new read. If it doesn't see this behavior, it just ignores any new data.
     - In order to make reading possible on the slave pico while in SSPCLKOUT phase mode 0, you will need to make sure you are toggling the CS chip correctly on the master and you are using the default CS pin on the slave(pin 16 for spi0) and used the `gpio_set_function()` function to set it as an SPI pin. If you want to use a different pin as the CS pin on the slave, you will need to set SSPCLKOUT phase to mode 1 and then manually check the CS pin before every read.
     - here is an example for how to set it SSPCLKOUT phase to mode 1: `spi_set_format(spi_default, 8, SPI_CPOL_1, SPI_CPHA_1, SPI_MSB_FIRST);`
+
 
 If there are any functions that you would like more details on, you can search for them in the [raspberry pi pico sdk documentation](https://www.raspberrypi.com/documentation/pico-sdk/) page.
