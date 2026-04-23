@@ -69,4 +69,4 @@ Here are some functions that you will need to use in order to complete this lab:
     - In order to make reading possible on the slave pico while in SSPCLKOUT phase mode 0, you will need to make sure you are toggling the CS chip correctly on the master and you are using the default CS pin on the slave(pin 16 for spi0) and used the `gpio_set_function()` function to set it as an SPI pin. If you want to use a different pin as the CS pin on the slave, you will need to set SSPCLKOUT phase to mode 1 and then manually check the CS pin before every read.
     - here is an example for how to set it SSPCLKOUT phase to mode 1: `spi_set_format(spi_default, 8, SPI_CPOL_1, SPI_CPHA_1, SPI_MSB_FIRST);`
 
-If there are any functions that you would like more details on, you can search for them in the [raspberry pi pico sdk documentastion](https://www.raspberrypi.com/documentation/pico-sdk/) page.
+If there are any functions that you would like more details on, you can search for them in the [raspberry pi pico sdk documentation](https://www.raspberrypi.com/documentation/pico-sdk/) page.
