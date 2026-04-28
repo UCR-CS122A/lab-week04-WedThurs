@@ -70,7 +70,7 @@ Here are some functions that you will need to use in order to complete this lab:
 7. `spi_set_format (spi_inst_t * spi, uint data_bits, spi_cpol_t cpol, spi_cpha_t cpha, __unused spi_order_t order)`
     - This is optional depending on your CS pin ussage on the master pico and your CS pin set up on the slave
     - When the SSPCLKOUT phase is set to mode 0(which it is by default), the slave pico expects to see the CS pin actually toggle from low to high after a read and then back to low for a new read. If it doesn't see this behavior, it just ignores any new data.
-    - In order to make reading possible on the slave pico while in SSPCLKOUT phase mode 0, you will need to make sure you are toggling the CS chip correctly on the master and you are using the default CS pin on the slave(pin 16 for spi0) and used the `gpio_set_function()` function to set it as an SPI pin. If you want to use a different pin as the CS pin on the slave, you will need to set SSPCLKOUT phase to mode 1 and then manually check the CS pin before every read.
+    - In order to make reading possible on the slave pico while in SSPCLKOUT phase mode 0, you will need to make sure you are toggling the CS chip correctly on the master and you are using the default CS pin on the slave(GPIO pin 17 for spi0) and used the `gpio_set_function()` function to set it as an SPI pin. If you want to use a different pin as the CS pin on the slave, you will need to set SSPCLKOUT phase to mode 1 and then manually check the CS pin before every read.
     - here is an example for how to set it SSPCLKOUT phase to mode 1: `spi_set_format(spi_default, 8, SPI_CPOL_1, SPI_CPHA_1, SPI_MSB_FIRST);`
 
 
