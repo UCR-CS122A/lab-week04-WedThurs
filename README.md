@@ -10,7 +10,7 @@ You'll be exploring:
 ### Required components
 1. FPGA (either ICESuger or ICESuger-pro)
 1. 1x DIP switch (in total 1 switch will be used)
-1. 2x Raspberry Pi Picos
+1. 2x Raspberry Pi Picos (2nd pico is for extra credit points)
 1. 12x LEDs (with 220Ohm resistors)
 1. Breadboard + enough wires to connect everything
 
@@ -22,16 +22,16 @@ You'll be exploring:
 
 ## System Description
 
-You are creating Christmas Lights! There will be two animated LED patterns that can be shown on 12 LEDs. You will control these LEDs across 3 devices--with each device controlling four LEDs.
+You are creating Christmas Lights! There will be two animated LED patterns that can be shown on 8 LEDs(12 for the extra credit). You will control these LEDs across 2 devices--with each device controlling four LEDs.
 
-The devices will speak with each other using the SPI communication protocol. The devices you have at hand: 2x picos, 1x FPGA.
+The devices will speak with each other using the SPI communication protocol. The devices you have at hand: 1x picos, 1x FPGA.
 
 One of the picos will serve as the SPI master, the other two devices as SPI slaves.
 
 The master pico generates a 12-bit pattern with each bit controlling one of the twelve LEDs.
 - 4 bits are used by the SPI Master to control its 4 LEDs
-- 4 bits are sent over SPI to the pico slave. The pico slave will consume the data, and display the value on the LEDs
-- The last 4 bits are to be sent to the FPGA slave which will update its LEDs.
+- 4 bits are to be sent to the FPGA slave which will update its LEDs.
+- (EC) The last 4 bits are sent over SPI to the pico slave. The pico slave will consume the data, and display the value on the LEDs
 
 A single switch toggles between two animations that can be displayed on the LEDs.
 
@@ -75,3 +75,6 @@ Here are some functions that you will need to use in order to complete this lab:
 
 
 If there are any functions that you would like more details on, you can search for them in the [raspberry pi pico sdk documentation](https://www.raspberrypi.com/documentation/pico-sdk/) page.
+
+## Extra Credit
+The original version of this lab required 2 Raspberry Pi picos, however, the class parts list only listed one pico as required. Because of this, we have removed the need for the 2nd Pico and made it extra credit. Now, the current requirements to receive full credit on this lab is to implement the 1st pico and the FPGA meaning a total of 8 LEDs. If you implement the 2nd pico and display the pattern on all 12 LEDs, you will recieve 15 points of extra credit. If you do not have a 2nd pico but want to complete the extra credit assignment, you can borrow one from Allan.
